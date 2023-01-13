@@ -4,6 +4,7 @@ import org.example.entity.Item;
 import org.example.service.ItemService;
 import org.example.service.SimpleItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,13 +19,13 @@ public class ItemController {
     public ItemController() {
         this.itemService = new SimpleItemService();
     }
-    @RequestMapping(path = "/items")
+    @RequestMapping(path = "/items", method = RequestMethod.GET)
     public List<Item> getItems() {
         return itemService.getAll();
     }
 
     @RequestMapping(path = "/item", method = RequestMethod.POST)
-    public void saveItem() {
-        itemService.saveItem(null);
+    public void saveItem(@RequestBody Item item) {
+        itemService.saveItem(item);
     }
 }
